@@ -1,0 +1,475 @@
+/* screen - add-threshold-popup */
+
+.add-threshold-popup {
+  align-items: flex-start;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  height: 1057px;
+  min-width: 657px;
+  position: relative;
+}
+
+.add-threshold-popup .frame-12031 {
+  align-items: flex-start;
+  background-color: var(--neutral50);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 30px 60px 10px 50px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .frame-1-4 {
+  height: 25px;
+  min-width: 526px;
+  position: relative;
+}
+
+.add-threshold-popup .add-new-threshold {
+  color: var(--neutral1300);
+  font-family: var(--font-family-inter);
+  font-size: 20px;
+  font-weight: 600;
+  left: 37px;
+  letter-spacing: -0.34px;
+  line-height: 32px;
+  position: absolute;
+  top: -1px;
+  white-space: nowrap;
+}
+
+.add-threshold-popup .cross {
+  height: 24px;
+  left: 502px;
+  position: absolute;
+  top: 6px;
+  width: 24px;
+}
+
+.add-threshold-popup .frame-120 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0px 0px 0px 36px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .general-information {
+  color: var(--contentsecondary);
+  font-weight: 600;
+  height: 19px;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: 492px;
+}
+
+.add-threshold-popup .field-base {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+  width: 211px;
+}
+
+.add-threshold-popup .frame-1 {
+  align-self: stretch;
+  background-color: var(--neutral50);
+  border: 1px solid;
+  border-color: var(--borderprimary);
+  border-radius: 5px;
+  height: 30px;
+  min-width: 211px;
+  position: relative;
+}
+
+.add-threshold-popup .chevron-1 {
+  height: 20px;
+  left: 183px;
+  position: absolute;
+  top: 5px;
+  width: 20px;
+}
+
+.add-threshold-popup .climate-parameter-and-the-risk-triggers {
+  color: var(--contentsecondary);
+  font-weight: 600;
+  height: 19px;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: 490px;
+}
+
+.add-threshold-popup .frame-120-1 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .frame-12037 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: flex-end;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .frame-12038 {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  padding: 10px 0px 10px 36px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .probability-of-asset-disruption {
+  color: var(--contentsecondary);
+  font-weight: 600;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .frame-12036 {
+  align-items: flex-end;
+  display: flex;
+  gap: 45px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .overlap-group-1 {
+  height: 20px;
+  position: relative;
+  top: 7px;
+  width: 268px;
+}
+
+.add-threshold-popup .frame-12024 {
+  align-items: flex-end;
+  display: flex;
+  gap: 19px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .label {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .button {
+  align-items: flex-start;
+  border-radius: 5px;
+  display: flex;
+  left: 23px;
+  position: absolute;
+  top: 245px;
+  width: fit-content;
+}
+
+.add-threshold-popup .base {
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0px 1px 0px #0000000d;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  padding: 6px 12px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .button-1 {
+  color: var(--violet600);
+  font-weight: 500;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .fragility-curve {
+  background-color: var(--neutral50);
+  height: 273px;
+  min-width: 257px;
+  overflow: hidden;
+  position: relative;
+}
+
+.add-threshold-popup .flex-col {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  left: 9px;
+  min-height: 290px;
+  position: relative;
+  top: -31px;
+  width: 308px;
+}
+
+.add-threshold-popup .overlap-group2 {
+  height: 234px;
+  position: relative;
+  width: 251px;
+}
+
+.add-threshold-popup .overlap-group1 {
+  height: 234px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 233px;
+}
+
+.add-threshold-popup .frame-11965 {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  left: 13px;
+  position: absolute;
+  top: 58px;
+  width: fit-content;
+}
+
+.add-threshold-popup .percent {
+  letter-spacing: 0.14px;
+  line-height: 16px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: 31px;
+}
+
+.add-threshold-popup .line-1456 {
+  height: 169px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 61px;
+  width: 1px;
+}
+
+.add-threshold-popup .frame-11968 {
+  align-items: flex-start;
+  display: flex;
+  gap: 23px;
+  height: 169px;
+  left: 80px;
+  overflow: hidden;
+  position: absolute;
+  top: 61px;
+  width: fit-content;
+}
+
+.add-threshold-popup .vector-53 {
+  height: 169px;
+  left: 50px;
+  position: absolute;
+  top: 61px;
+  width: 171px;
+}
+
+.add-threshold-popup .line-1454 {
+  height: 1px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 200px;
+  width: 183px;
+}
+
+.add-threshold-popup .line-1458 {
+  height: 1px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 92px;
+  width: 183px;
+}
+
+.add-threshold-popup .line-1459 {
+  height: 1px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 70px;
+  width: 183px;
+}
+
+.add-threshold-popup .line-1457 {
+  height: 1px;
+  left: 50px;
+  object-fit: cover;
+  position: absolute;
+  top: 230px;
+  width: 186px;
+}
+
+.add-threshold-popup .fragility-curve-1 {
+  color: var(--neutral1100);
+  font-weight: 600;
+  left: 48px;
+  line-height: normal;
+  position: absolute;
+  top: 30px;
+  width: 203px;
+}
+
+.add-threshold-popup .frame-12035 {
+  align-items: flex-start;
+  align-self: center;
+  display: flex;
+  gap: 4px;
+  margin-right: 30.0px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .number {
+  letter-spacing: 0.14px;
+  line-height: 16px;
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: 20px;
+}
+
+.add-threshold-popup .x100 {
+  color: var(--yellow800);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xxxxxs);
+  font-weight: 600;
+  letter-spacing: 0.14px;
+  line-height: 16px;
+  margin-left: -12.00px;
+  margin-right: -10.00px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: 31px;
+}
+
+.add-threshold-popup .x100-1 {
+  color: var(--yellow900);
+  margin-left: -12.00px;
+  margin-right: -10.00px;
+}
+
+.add-threshold-popup .x100-2 {
+  color: var(--red800);
+  margin-left: -11.50px;
+  margin-right: -9.50px;
+}
+
+.add-threshold-popup .buttons {
+  background-color: var(--neutral75);
+  border-radius: 0px 0px 5px 5px;
+  height: 72px;
+  min-width: 657px;
+  overflow: hidden;
+  position: relative;
+}
+
+.add-threshold-popup .button-2 {
+  align-items: flex-start;
+  border: 1px solid;
+  border-color: var(--violet600);
+  border-radius: 5px;
+  display: flex;
+  height: 40px;
+  left: 60px;
+  padding: 2px 0px;
+  position: absolute;
+  top: 16px;
+  width: 82px;
+}
+
+.add-threshold-popup .base-1 {
+  align-self: stretch;
+  flex: 1;
+}
+
+.add-threshold-popup .button-3 {
+  color: var(--violet600);
+  font-weight: 500;
+  line-height: normal;
+  margin-left: -0.50px;
+  margin-right: -0.50px;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .button-4 {
+  align-items: flex-start;
+  display: flex;
+  left: 438px;
+  position: absolute;
+  top: 16px;
+  width: fit-content;
+}
+
+.add-threshold-popup .base-2 {
+  background-color: var(--violet600);
+}
+
+.add-threshold-popup .button-5 {
+  color: var(--neutral50);
+  font-weight: 500;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .icon-information {
+  height: 20px;
+  left: 300px;
+  position: absolute;
+  top: 589px;
+  width: 20px;
+}
+
+.add-threshold-popup .base-3 {
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0px 1px 0px #0000000d;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  padding: 10px 20px;
+  position: relative;
+  width: fit-content;
+}
+
+.add-threshold-popup .x100-3 {
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xxxxxs);
+  font-weight: 600;
+  letter-spacing: 0.14px;
+  line-height: 16px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: 31px;
+}

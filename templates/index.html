@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Design4Climate | NCASPD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="National Climate Strategies and Policies Database" name="description" />
+    <meta content="World Bank Group" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../static/assets/images/favicon.ico">
+
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+    <!-- plugin css -->
+    <link href="../static/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Layout config Js -->
+    <script src="../static/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="../static/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="../static/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="../static/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .wrapped-link {
+          white-space: normal;
+      }
+  </style>
+
+</head>
+
+<body style="margin: 0; background: #f4f6f8">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="layout-width">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box horizontal-logo">
+                            <br><br>
+                            <a href="/" class="logo logo-gpbp">
+                                <span class="logo-sm">
+                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                                </span>
+                            </a>
+
+                            <a href="/" class="logo logo-gpbp">
+                                <span class="logo-sm">
+                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <br><br>
+                <!-- Dark Logo-->
+                <a href="/" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                    </span>
+                </a>
+                <!-- Light Logo-->
+                <a href="/" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Menu</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/" class="nav-link" data-key="t-rtd"> National Climate Strategies and Policies Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/index" class="nav-link" data-key="t-newrec"> View Database </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/record" class="nav-link" data-key="t-ref"> Add New Record </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> <!-- end Dashboard Menu -->
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+
+            <div class="sidebar-background"></div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start TITLE ROW  -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h1>National Climate Actions Strategies & Policies Database</h1>
+                                <h3 class="mb-sm-0">The National Climate Actions Strategies & Policies Database (NCASPD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end TITLE ROW -->
+
+                    <!-- start DATABASE ROW  -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h5 class="card-title mb-0 flex-grow-1">National Climate Actions Strategies & Policies Database</h5>
+                                    <div>
+                                        <a href='/record'><button id="addRecord" class="btn btn-primary">Add New Record</button></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+
+                                    <p class="text-muted"><code> ***CCDR </code> Country Climate and Development Reports</p>
+                                    <p class="text-muted"><code> **NECP </code> National Energy and Climate Plans</p>
+
+                                    <table id="scroll-horizontal" class="table table-bordered dt-responsive nowrap align-middle mdl-data-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Country<br/><font size="1">Country Management Unit</font></th>
+                                                <th>Short Title<br/><font size="1">Policy Type</font></th>
+                                                <th>Document Date</th>
+                                                <th>Category</th>
+                                                <th>Status and Availability</th>
+                                                <th>Read Document</th>
+                                                <th>Reference</th>
+                                                <th>Document Title</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in row_data %}
+                                            <tr>
+                                                <td>{{row[2]}}<br/><font size="1">{{row[1]}}</font></td>
+                                                <td>{{row[3]}}<br/><font size="1">{{row[9]}}</font></td>
+                                                <td>{{row[11]}}</td>
+                                                <td>{{row[10]}}</td>
+
+                                                <td>
+                                                    <span class="badge" style="background-color:{{row[14]}};">{{row[8]}}</span> 
+                                                    <span class="badge" style="background-color:{{row[15]}};">{{row[7]}}</span>
+                                                </td>
+
+                                                <td><a href="{{row[6]}}" target="_blank" class="wrapped-link">View Document</a></td>
+                                                <td><a href="{{row[5]}}" target="_blank" class="wrapped-link">More details</a></td>
+                                                <td>{{row[4]}}</td>
+
+                                                <td>
+                                                    <div class="dropdown d-inline-block">
+                                                        <form action="/editrecord" method='POST'>
+                                                            <input type="text" id="recordID" name="recordID" value="{{row[0]}}" hidden />
+                                                            <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="ri-more-fill align-middle"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li><a class="dropdown-item edit-item-btn"><button id="optionTags" name="optionTags" value="editRecord" class="btn btn-primary" type="submit" disabled><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</button></a></li>
+                                                                <li>
+                                                                    <a class="dropdown-item remove-item-btn"><button name="optionTags" id="optionTags" value="deleteRecord" class="btn btn-primary" type="submit" disabled>
+                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</button>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            {% endfor %} 
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div>
+                    <!--end DATABASE row-->
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © NCASPD.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Design4Climate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="../static/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../static/assets/libs/node-waves/waves.min.js"></script>
+    <script src="../static/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="../static/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="../static/assets/js/plugins.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- apexcharts -->
+    <script src="../static/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    <script src="../static/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="../static/assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!--datatable js-->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="../static/assets/js/pages/datatables.init.js"></script>
+
+    <!-- Dashboard init -->
+    <script src="../static/assets/js/pages/dashboard-analytics.init.js"></script>
+
+    <!-- App js -->
+    <script src="../static/assets/js/app.js"></script>
+</body>
+
+</html>

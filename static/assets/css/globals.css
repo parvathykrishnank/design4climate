@@ -1,0 +1,92 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Inter:400,700,500,600|Poppins:700,600");
+/* The following line is used to measure usage of this code in production. For more info see our usage billing page */
+@import url("https://px.animaapp.com/641781da78e8709fb2a94ce8.641781db1696214747533b2a.H0GZyIU.hcp.png");
+
+
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.country-overview {
+  color: var(--neutral800);
+  font-weight: 400;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.frame-11308 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: fit-content;
+}
+
+.frame-11309 {
+  align-items: flex-start;
+  display: flex;
+  padding: 0px 16px;
+  position: relative;
+  width: fit-content;
+}
+
+.country-overview-1 {
+  color: var(--violet400);
+  font-weight: 400;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.frame-11960 {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 3.0px;
+  margin-left: 436px;
+  position: relative;
+  width: fit-content;
+}
+
+.header-tabs-4 {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+}
