@@ -4,7 +4,7 @@
     <head>
 
    <meta charset="utf-8" />
-    <title>Design4Climate | NCASPD</title>
+    <title>Climate Legislation and Actions Database | CLAD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="National Climate Strategies and Policies Database" name="description" />
     <meta content="World Bank Group" name="author" />
@@ -37,8 +37,6 @@
       }
   </style>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-
-
     </head>
 
     <body>
@@ -118,6 +116,9 @@
                             <a class="nav-link menu-link" href="/record">
                                 <i class="ri-add-box-line"></i> <span data-key="t-dashboards">Add New Record</span>
                             </a>
+                            <a class="nav-link menu-link" href="/genai">
+                                <i class="ri-test-tube-fill"></i> <span data-key="t-dashboards">Recommendations</span>
+                            </a>
                         </li> <!-- end Dashboard Menu -->
                     </ul>
                 </div>
@@ -142,8 +143,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h1>National Climate Actions Strategies & Policies Database</h1>
-                                <h3 class="mb-sm-0">The National Climate Actions Strategies & Policies Database (NCASPD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+                                <h1>Climate Legislation and Actions Database</h1>
+                                <h3 class="mb-sm-0">The Climate Legislation and Actions Database (CLAD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
 
                             </div>
                         </div>
@@ -151,7 +152,6 @@
                     <!-- end TITLE ROW -->
 
                     <!-- start Dashboard ROW  -->
-
                     <div class="row">
                       <div class="col-md-12">
                         <div class="card">
@@ -180,7 +180,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                   <div id="plotly_map" style="width: 100%; height: 500;"></div>
+                                   <div id="plotly_map" style="width: 100%; height: 400;"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card">
@@ -194,44 +194,97 @@
                                                     <h2>{{ total_docs }}</h2>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h6>Unique Countries:</h6>
-                                                    <h5 id="unique-countries"></h5>
+                                                    <h6>Available in English:</h6>
+                                                    <h2>{{ english_documents }}/{{perc_english}}%</h2>
                                                 </div>
                                             </div>
                                             <hr>
                                             <h6 class="mt-3">Documents by Policy Type</h6>
-                                            <div id="bar-chart" style="width: 100; height: 100;"></div>
+                                            <div id="bar-chart" style="width: 100; height: 80;"></div>
                                         </div>
                                     </div>   
                                 </div>
                             </div>
-                            <div class="row">
-                                <table id="scroll-horizontal" class="table table-bordered dt-responsive nowrap align-middle mdl-data-table" style="width:100%">
-                                        <thead>
+                           <div class="row">
+                                <h2>Overview of Document Availability</h2>
+                                        <br>
+                                        <hr>
+                                        <h4>Sector-Specific</h4>
+                                        <table class="table">
+                                          <thead>
                                             <tr>
-                                                <th>Short Title</th>
-                                                <th>Reference Link</th>
-                                                <th>Document Title</th>
-                                                <th>Keywords</th> 
+                                              {% for column in sector_columns %}
+                                                <th>{{ column }}</th>
+                                              {% endfor %}
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                             {% for row in table_data %}
-                                                <tr>
-                                                    <td>{{ row['Short Title'] }}</td>
-                                                    <td><a href="{{ row['Reference Link'] }}" target="_blank" class="btn btn-primary">View</a></td>
-                                                    <td>{{ row['Document Title'] }}</td>
-                                                    <td>{{ row['Keywords'] }}</td>
-                                                </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for index, row in sector_df_dict.iterrows() %}
+                                            <tr>
+                                              {% for column in sector_columns %}
+                                                {% if column not in ['CMU', 'Country'] %}
+                                                  {% set cell_value = row[column] %}
+                                                  {% if cell_value == 'Not Available' %}
+                                                    <td style="background-color: #ffcccc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string and cell_value.isdigit() %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string %}
+                                                    <td style="background-color: #ffedcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is number %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% else %}
+                                                    <td>{{ cell_value }}</td>
+                                                  {% endif %}
+                                                {% else %}
+                                                  <td>{{ row[column] }}</td>
+                                                {% endif %}
+                                              {% endfor %}
+                                            </tr>
                                             {% endfor %}
-                                        </tbody>
-                                    </table>
+                                          </tbody>
+                                        </table>
+                                        
+                                        <hr>
+
+                                        <h4>Laws and Legislations</h4>
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                              {% for column in law_legis_columns %}
+                                                <th>{{ column }}</th>
+                                              {% endfor %}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for index, row in law_legis_df_dict.iterrows() %}
+                                            <tr>
+                                              {% for column in law_legis_columns %}
+                                                {% if column not in ['CMU', 'Country'] %}
+                                                  {% set cell_value = row[column] %}
+                                                  {% if cell_value == 'Not Available' %}
+                                                    <td style="background-color: #ffcccc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string and cell_value.isdigit() %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string %}
+                                                    <td style="background-color: #ffedcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is number %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% else %}
+                                                    <td>{{ cell_value }}</td>
+                                                  {% endif %}
+                                                {% else %}
+                                                  <td>{{ row[column] }}</td>
+                                                {% endif %}
+                                              {% endfor %}
+                                            </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                        </table>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
                     <!--end Dashboard row-->
 
     </div> <!-- container-fluid -->
@@ -243,7 +296,7 @@
     <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
-            <script>document.write(new Date().getFullYear())</script> © NCASPD.
+            <script>document.write(new Date().getFullYear())</script> © CLAD.
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end d-none d-sm-block">

@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Design4Climate | NCASPD</title>
+    <title>Climate Legislation and Actions Database | CLAD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="National Climate Strategies and Policies Database" name="description" />
     <meta content="World Bank Group" name="author" />
@@ -116,6 +116,9 @@
                             <a class="nav-link menu-link" href="/record">
                                 <i class="ri-add-box-line"></i> <span data-key="t-dashboards">Add New Record</span>
                             </a>
+                            <a class="nav-link menu-link" href="/genai">
+                                <i class="ri-test-tube-fill"></i> <span data-key="t-dashboards">Recommendations</span>
+                            </a>
                         </li> <!-- end Dashboard Menu -->
                     </ul>
                 </div>
@@ -140,8 +143,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h1>National Climate Actions Strategies & Policies Database</h1>
-                                <h3 class="mb-sm-0">The National Climate Actions Strategies & Policies Database (NCASPD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+                                <h1>Climate Legislation and Actions Database</h1>
+                                <h3 class="mb-sm-0">The Climate Legislation and Actions Database (CLAD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
 
                             </div>
                         </div>
@@ -167,32 +170,36 @@
                                         <thead>
                                             <tr>
                                                 <th>Country<br/><font size="1">Country Management Unit</font></th>
-                                                <th>Short Title<br/><font size="1">Policy Type</font></th>
+                                                <th>Policy Type<br/><font size="1">Short Title</font></th>
                                                 <th>Document Date</th>
-                                                <th>Category</th>
-                                                <th>Status and Availability</th>
+=
+                                                <th>Status, Language and Accessibility</th>
+
                                                 <th>Read Document</th>
-                                                <th>Reference</th>
                                                 <th>Document Title</th>
+                                                <th>Category</th>
+                                                <th>Reference</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for row in row_data %}
                                             <tr>
-                                                <td>{{row[2]}}<br/><font size="1">{{row[1]}}</font></td>
-                                                <td>{{row[3]}}<br/><font size="1">{{row[9]}}</font></td>
-                                                <td>{{row[11]}}</td>
-                                                <td>{{row[10]}}</td>
+                                                <td>{{row[1]}}<br/><font size="1">{{row[0]}}</font></td>
+                                                <td>{{row[10]}}<br/><font size="1">{{row[2]}}</font></td>
+                                                <td>{{row[12]}}</td>
 
                                                 <td>
-                                                    <span class="badge" style="background-color:{{row[14]}};">{{row[8]}}</span> 
-                                                    <span class="badge" style="background-color:{{row[15]}};">{{row[7]}}</span>
+                                                    <span class="badge" style="background-color:{{row[16]}};">{{row[9]}}</span> 
+                                                    <span class="badge" style="background-color:{{row[17]}};">{{row[7]}}</span>
+                                                    <span class="badge" style="background-color:{{row[18]}};">{{row[6]}}</span>
+
                                                 </td>
 
-                                                <td><a href="{{row[6]}}" target="_blank" class="wrapped-link">View Document</a></td>
-                                                <td><a href="{{row[5]}}" target="_blank" class="wrapped-link">More details</a></td>
-                                                <td>{{row[4]}}</td>
+                                                <td><a href="{{row[5]}}" target="_blank" class="wrapped-link">View Document</a></td>
+                                                <td>{{row[3]}}</td>
+                                                <td>{{row[11]}}</td>
+                                                 <td><a href="{{row[4]}}" target="_blank" class="wrapped-link">More details</a></td>
 
                                                 <td>
                                                     <div class="dropdown d-inline-block">
@@ -233,7 +240,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © NCASPD.
+                            <script>document.write(new Date().getFullYear())</script> © CLAD.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">

@@ -4,7 +4,7 @@
     <head>
 
     <meta charset="utf-8" />
-    <title>Design4Climate | NCASPD</title>
+    <title>Climate Legislation and Actions Database</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="National Climate Strategies and Policies Database" name="description" />
     <meta content="World Bank Group" name="author" />
@@ -101,6 +101,9 @@
                             <a class="nav-link menu-link" href="/record">
                                 <i class="ri-add-box-line"></i> <span data-key="t-dashboards">Add New Record</span>
                             </a>
+                            <a class="nav-link menu-link" href="/genai">
+                                <i class="ri-test-tube-fill"></i> <span data-key="t-dashboards">Recommendations</span>
+                            </a>
                         </li> <!-- end Dashboard Menu -->
                     </ul>
                 </div>
@@ -125,8 +128,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h1>National Climate Actions Strategies & Policies Database</h1>
-                                <h3 class="mb-sm-0">The National Climate Actions Strategies & Policies Database (NCASPD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+                                <h1>Climate Legislation and Actions Database</h1>
+                                <h3 class="mb-sm-0">The Climate Legislation and Actions Database (CLAD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
 
                             </div>
                         </div>
@@ -210,7 +213,7 @@
                                         <div class="col-lg-3">
                                             <select class="form-control" data-choices name="Language" id="Language">
                                                 <option value="English">English</option>
-                                                <option value="Other">Others</option>
+                                                <option value="Non-English">Non-English</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-3" id="otherLanguageInput" style="display:none;"> 
@@ -227,6 +230,19 @@
                                                 <option value="Adopted">Adopted</option>
                                                 <option value="Draft">Draft</option>
                                                 <option value="Work in Progress">Work in Progress</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-lg-3">
+                                            <label for="accessibility" class="form-label">Accessibility</label>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <select class="form-control" data-choices name="accessibility" id="accessibility">
+                                                <option value="Public">Public</option>
+                                                <option value="Restricted Use">Draft</option>
+                                                <option value="">None</option>
                                             </select>
                                         </div>
                                     </div>
@@ -268,22 +284,12 @@
 
                                     <div class="row mb-3">
                                         <div class="col-lg-3">
-                                            <label for="Review Date" class="form-label">Review Date</label>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <input type="date" class="form-control" id="Review Date" name="Review Date" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-lg-3">
                                             <label for="Comments" class="form-label">Comments</label>
                                         </div>
                                         <div class="col-lg-9">
                                             <textarea class="form-control" id="Comments" name="Comments" rows="4"></textarea>
                                         </div>
                                     </div>
-
 
                                     <div class="text-end">
                                         <button type="submit" class="btn btn-primary">{{button_text}}</button>
@@ -303,7 +309,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © NCASPD.
+                            <script>document.write(new Date().getFullYear())</script> © CLAD.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
