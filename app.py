@@ -3,6 +3,9 @@ import pandas as pd
 import random
 import string
 from datetime import date
+import folium
+from folium.features import GeoJsonTooltip
+
 
 app = Flask(__name__)
 
@@ -32,11 +35,15 @@ def dashboard():
     'Turkiye': 'TUR',
     'Turkmenistan': 'TKM',
     'Ukraine': 'UKR',
-    'Uzbekistan': 'UZB'
+    'Uzbekistan': 'UZB',
+    'Austria':'AUT'
     }
 
     ncasdf = pd.read_excel('database.xlsx')
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
+    ncasdf['Document date'] = pd.to_datetime(ncasdf['Document date'])
+    ncasdf['Document Year'] = ncasdf['Document date'].dt.year
+    ncasdf['Document Year'] = ncasdf['Document Year'].fillna(0).astype(int).astype(str)
 
     if selected_cmu != 'All':
         ncasdf = ncasdf[ncasdf['CMU'] == selected_cmu]
@@ -64,61 +71,99 @@ def dashboard():
     english_documents = str(ncasdf[ncasdf['Language']=='English']['Document Title'].count())
     perc_english = str(round(ncasdf[ncasdf['Language']=='English']['Document Title'].count()*100/ncasdf['Document Title'].count()))
 
+    def get_dict(df):
+        # Group by and get the max year
+        df_grouped = df.groupby(['CMU', 'Country', 'Category'])['Document Year'].max().reset_index()
+        # Merge with original data to retain the Status
+        merged_df = pd.merge(df_grouped, ncasdf, on=['CMU', 'Country', 'Category','Document Year'], how='left')
+        # Pivot the DataFrame
+        pivot_df = merged_df.pivot_table(index=["CMU", "Country"], 
+                                         columns="Category", values="Document Year", aggfunc='first')
+        # Fill NaN values with 'Not Available'
+        pivot_df.fillna('Not Available', inplace=True)
+        # Replace '0' with the corresponding Status
+        for index, row in pivot_df.iterrows():
+            for col in pivot_df.columns:
+                if row[col] == '0':
+                    status = merged_df[(merged_df['CMU'] == index[0]) & 
+                                       (merged_df['Country'] == index[1]) & 
+                                       (merged_df['Category'] == col)]['Status'].values[0]
+                    pivot_df.at[index, col] = status
+        df_dict = pivot_df.reset_index()
+        df_dict['CMU'] = df_dict['CMU'].apply(lambda x:x.replace('_',' '))
+        print(df_dict)
+        return df_dict
 
-    sector_specific = ncasdf[ncasdf['Policy type'] == 'Sector-specific']
-    sector_specific['Document date'] = pd.to_datetime(sector_specific['Document date'])
-    sector_specific['Document Year'] = sector_specific['Document date'].dt.year
-    # Group by and get the max year
-    sector_specific_grouped = sector_specific.groupby(['CMU', 'Country', 'Category'])['Document Year'].max().reset_index()
-    sector_specific_grouped['Document Year'] = sector_specific_grouped['Document Year'].fillna(0).astype(int).astype(str)
-    # Merge with original data to retain the Status
-    merged_df = pd.merge(sector_specific_grouped, ncasdf, on=['CMU', 'Country', 'Category'], how='left')
-    # Pivot the DataFrame
-    pivot_df = merged_df.pivot_table(index=["CMU", "Country"], 
-                                     columns="Category", values="Document Year", aggfunc='first')
-    # Fill NaN values with 'Not Available'
-    pivot_df.fillna('Not Available', inplace=True)
-    # Replace '0' with the corresponding Status
-    for index, row in pivot_df.iterrows():
-        for col in pivot_df.columns:
-            if row[col] == '0':
-                status = merged_df[(merged_df['CMU'] == index[0]) & 
-                                   (merged_df['Country'] == index[1]) & 
-                                   (merged_df['Category'] == col)]['Status'].values[0]
-                pivot_df.at[index, col] = status
-    sector_df_dict = pivot_df.reset_index()
-    sector_df_dict['CMU'] = sector_df_dict['CMU'].apply(lambda x:x.replace('_',' '))
+    # Sector Summaries
+    sector_specific = ncasdf[ncasdf['Policy type'] == 'Sector-specific strategy']
+    sector_df_dict = get_dict(sector_specific)
     sector_columns = sector_df_dict.columns
 
-
+    #Law/Legislation Summary
     law_legis = ncasdf[ncasdf['Policy type'] == 'Law/Legislation']
-    law_legis['Document date'] = pd.to_datetime(law_legis['Document date'])
-    law_legis['Document Year'] = law_legis['Document date'].dt.year
-    # Group by and get the max year
-    law_legis_grouped = law_legis.groupby(['CMU', 'Country', 'Category'])['Document Year'].max().reset_index()
-    law_legis_grouped['Document Year'] = law_legis_grouped['Document Year'].fillna(0).astype(int).astype(str)
-    # Merge with original data to retain the Status
-    merged_df = pd.merge(law_legis_grouped, ncasdf, on=['CMU', 'Country', 'Category'], how='left')
-    # Pivot the DataFrame
-    pivot_df = merged_df.pivot_table(index=["CMU", "Country"], 
-                                     columns="Category", values="Document Year", aggfunc='first')
-    # Fill NaN values with 'Not Available'
-    pivot_df.fillna('Not Available', inplace=True)
-    # Replace '0' with the corresponding Status
-    for index, row in pivot_df.iterrows():
-        for col in pivot_df.columns:
-            if row[col] == '0':
-                status = merged_df[(merged_df['CMU'] == index[0]) & 
-                                   (merged_df['Country'] == index[1]) & 
-                                   (merged_df['Category'] == col)]['Status'].values[0]
-                pivot_df.at[index, col] = status
-    law_legis_df_dict = pivot_df.reset_index()
-    law_legis_df_dict['CMU'] = law_legis_df_dict['CMU'].apply(lambda x:x.replace('_',' '))
+    law_legis_df_dict = get_dict(law_legis)
     law_legis_columns = law_legis_df_dict.columns
 
+    
+
+    m = folium.Map(location=[50, 60], zoom_start=3, tiles='cartodbpositron')
+
+    # Add the Choropleth layer
+    choropleth = folium.Choropleth(
+            geo_data='https://raw.githubusercontent.com/python-visualization/folium/main/examples/data/world-countries.json',
+            name='choropleth',
+            data=count_df,
+            columns=['Country', 'Document Title'],
+            key_on='feature.properties.name',
+            fill_color='YlGn',
+            fill_opacity=1,
+            line_opacity=0.5,
+            legend_name=None
+    )
+    for key in choropleth._children:
+        if key.startswith('color_map'):
+            del(choropleth._children[key])
+    choropleth.add_to(m)
+
+    country_to_doc = dict(zip(count_df['Country'], count_df['Document Title']))
+
+
+    # Modify GeoJSON data to include Document Title and set non-data countries to grey
+    geojson_data = choropleth.geojson.data
+    for feature in geojson_data['features']:
+        country_name = feature['properties']['name']
+        if country_name in country_to_doc:
+            feature['properties']['document_title'] = country_to_doc[country_name]
+        else:
+            feature['properties']['document_title'] = 'N/A'
+            feature['properties']['style'] = {'fillColor': '#D3D3D3', 'fillOpacity': 1, 'weight': 0}
+
+
+    # Add hover functionality
+    style_function = lambda x: x['properties']['style'] if 'style' in x['properties'] else {'fillColor': '#ffffff', 
+                            'color':'#000000', 
+                            'fillOpacity': 0.1, 
+                            'weight': 0.1}
+
+    tooltip = GeoJsonTooltip(
+        fields=['name', 'document_title'],
+        aliases=['Country: ', 'Number of Documents: '],
+        style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
+    )
+
+
+    # Add GeoJson layer with tooltip
+    folium.GeoJson(
+        geojson_data,
+        style_function=style_function,
+        control=False,
+        tooltip=tooltip
+    ).add_to(m)
+
+    m.save('static/assets/folium_choropleth_map.html')
+
     return render_template(
-        'dashboard.html', 
-        country_counts=count_df.to_dict(orient='records'),
+        'dashboard.html',
         cmu_list=cmu_list,
         selected_cmu=selected_cmu,
         country_list=country_list,
@@ -137,23 +182,23 @@ def index():
     ncasdf = pd.read_excel('database.xlsx')
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
 
-    color_status_dict = {'Adopted':'green','Draft':'yellow','Work in Progress':'orange','Unknown':'red'}
+    color_status_dict = {'Adopted':'green','Draft':'#DAA520','Work in Progress':'orange','Unknown':'red'}
     ncasdf['Status'].fillna('Unknown',inplace=True)
-    ncasdf['color_status'] = ncasdf['Status'].apply(lambda x: color_status_dict[x])
+    ncasdf['color_status'] = ncasdf['Status'].apply(lambda x: color_status_dict[x.strip()])
     
     ncasdf['Language'].fillna('N/A',inplace=True)
     color_language_dict = {'English':'blue','Non-English':'violet','N/A':'red'}
-    ncasdf['color_language'] = ncasdf['Language'].apply(lambda x: color_language_dict[x])
+    ncasdf['color_language'] = ncasdf['Language'].apply(lambda x: color_language_dict[x.strip()])
     ncasdf['Language_2'] = ncasdf['Language_2'].fillna(ncasdf['Language'])
 
     ncasdf['Document date'] = ncasdf['Document date'].apply(lambda x:str(x)[0:10])
 
     color_access_dict = {'Public':'#013220','Restricted Use':'Coral','N/A':'red'}
     ncasdf['Accessibility'].fillna('N/A',inplace=True)
-    ncasdf['color_access'] = ncasdf['Accessibility'].apply(lambda x: color_access_dict[x])
+    ncasdf['color_access'] = ncasdf['Accessibility'].apply(lambda x: color_access_dict[x.strip()])
 
-    for idx, col in enumerate(ncasdf.columns):
-        print(f"Column ID: {idx}, Column Name: {col}, First Value: {ncasdf[col].iloc[0]}")
+    #for idx, col in enumerate(ncasdf.columns):
+        #print(f"Column ID: {idx}, Column Name: {col}, First Value: {ncasdf[col].iloc[0]}")
 
     return render_template('index.html',row_data=list(ncasdf.astype(str).values.tolist()))
 
@@ -193,8 +238,8 @@ def recordroute():
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
 
     cmu_list = list(ncasdf['CMU'].unique())
-    country_list = list(ncasdf['Country'].unqique())
-    policy_type = list(ncasdf['Policy type'].unqique())
+    country_list = list(ncasdf['Country'].unique())
+    policy_type = list(ncasdf['Policy type'].unique())
     category_type = list(ncasdf['Category'].unique())
 
     return render_template('record.html',
@@ -208,7 +253,7 @@ def recommendations():
 
 
 if __name__ == "__main__":
-   app.run(debug=True,port=8080)
+   app.run(debug=False,port=8080)
 
 
 

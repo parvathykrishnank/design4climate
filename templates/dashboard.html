@@ -144,7 +144,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                 <h1>Climate Legislation and Actions Database</h1>
-                                <h3 class="mb-sm-0">The Climate Legislation and Actions Database (CLAD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+                                <h3 class="mb-sm-0">Climate Legislation and Action Database in ECA (CLAD-ECA) is a repository of climate-relevant national-level legislation, strategies, action plans, and policies in Europe and Central Asia (ECA) region. It is developed and maintained by the Design 4 Climate (D4C) that works on the fulfillment of the World Bank's climate corporate commitments in ECA region on behalf of ECA DE.</h3>
 
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                   <div id="plotly_map" style="width: 100%; height: 400;"></div>
+                                    <iframe src="{{ url_for('static', filename='../static/assets/folium_choropleth_map.html') }}" width="100%" height="600px" frameborder="0"></iframe>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card">
@@ -362,58 +362,6 @@
     <script src="../static/assets/js/pages/dashboard-analytics.init.js"></script>
     <!-- App js -->
     <script src="../static/assets/js/app.js"></script>
-
-    <script>
-
-    var rows = {{ country_counts | tojson }};
-
-    function unpack(rows, key) {
-            return rows.map(function(row) { return row[key]; });
-        }
-
-    var data = [{
-            type: 'choropleth',
-            locations: unpack(rows, 'Country_Code'),
-            z: unpack(rows, 'Document Title'),
-            text: unpack(rows, 'Country'),
-            autocolorscale: true,
-            showscale: false
-        }];
-
-    var layout = {
-            autosize: true,
-            showlegend:false,
-            geo:{
-                showframe: false,
-                showcoastlines: false,
-                projection:{
-                    type: 'mercator'
-                },
-
-                center: {
-                    lat: 48.5, // Adjust latitude to center ECA
-                    lon: 60    // Adjust longitude to center ECA
-                },
-                lataxis: {
-                    range: [35, 70] // Latitude range for ECA
-                },
-                lonaxis: {
-                    range: [20, 100] // Longitude range for ECA
-                },
-            }, 
-            autosize: true,
-            margin: {
-            l: 0,
-            r: 0,
-            b: 0,
-            t: 0,
-            pad: 0},
-            fitbounds: "locations",
-            visible: false
-        };
-
-        Plotly.newPlot("plotly_map", data, layout, {showLink: false});
-    </script>
 
     <script type="text/javascript">
 

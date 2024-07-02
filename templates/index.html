@@ -31,12 +31,13 @@
     <link href="../static/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="../static/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    
     <style type="text/css">
         .wrapped-link {
           white-space: normal;
       }
-  </style>
-
+    </style>
+  
 </head>
 
 <body style="margin: 0; background: #f4f6f8">
@@ -144,7 +145,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                 <h1>Climate Legislation and Actions Database</h1>
-                                <h3 class="mb-sm-0">The Climate Legislation and Actions Database (CLAD) for Europe and Central Asia (ECA) was established by the Design for Climate (D4C) team that works on the fulfillment of the World Bank’s climate corporate commitments in ECA region.</h3>
+                                <h3 class="mb-sm-0">Climate Legislation and Action Database in ECA (CLAD-ECA) is a repository of climate-relevant national-level legislation, strategies, action plans, and policies in Europe and Central Asia (ECA) region. It is developed and maintained by the Design 4 Climate (D4C) that works on the fulfillment of the World Bank's climate corporate commitments in ECA region on behalf of ECA DE.</h3>
 
                             </div>
                         </div>
@@ -156,7 +157,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header d-flex align-items-center">
-                                    <h5 class="card-title mb-0 flex-grow-1">National Climate Actions Strategies & Policies Database</h5>
+                                    <h5 class="card-title mb-0 flex-grow-1">Climate Legislation and Actions Database</h5>
                                     <div>
                                         <a href='/record'><button id="addRecord" class="btn btn-primary">Add New Record</button></a>
                                     </div>
@@ -170,13 +171,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Country<br/><font size="1">Country Management Unit</font></th>
-                                                <th>Policy Type<br/><font size="1">Short Title</font></th>
-                                                <th>Document Date</th>
-=
-                                                <th>Status, Language and Accessibility</th>
-
+                                                <th>Short Title<br/><font size="1">Policy Type</font></th>
                                                 <th>Read Document</th>
+                                                <th>Status, Language and Accessibility</th>
                                                 <th>Document Title</th>
+                                                <th>Document Date</th>
                                                 <th>Category</th>
                                                 <th>Reference</th>
                                                 <th>Actions</th>
@@ -185,22 +184,36 @@
                                         <tbody>
                                             {% for row in row_data %}
                                             <tr>
-                                                <td>{{row[1]}}<br/><font size="1">{{row[0]}}</font></td>
-                                                <td>{{row[10]}}<br/><font size="1">{{row[2]}}</font></td>
-                                                <td>{{row[12]}}</td>
+                                                <!-- Country and CMU  -->
+                                                <td>{{row[2]}}<br/><font size="1">{{row[1]}}</font></td>
 
+                                                <!-- Short Title  -->
+                                                <td>{{row[3]}}<br/><font size="1">{{row[11]}}</font></td>
+                                                
+
+                                                <!-- Read Document  -->
+                                                <td><a href="{{row[6]}}" target="_blank" class="wrapped-link">View Document</a></td>
+                                                
+                                                <!-- Status, Language and Accessibility  -->
                                                 <td>
-                                                    <span class="badge" style="background-color:{{row[16]}};">{{row[9]}}</span> 
-                                                    <span class="badge" style="background-color:{{row[17]}};">{{row[7]}}</span>
-                                                    <span class="badge" style="background-color:{{row[18]}};">{{row[6]}}</span>
-
+                                                    <span class="badge" style="background-color:{{row[18]}};">{{row[10]}}</span> 
+                                                    <span class="badge" style="background-color:{{row[19]}};">{{row[9]}}</span>
+                                                    <span class="badge" style="background-color:{{row[20]}};">{{row[7]}}</span>
                                                 </td>
 
-                                                <td><a href="{{row[5]}}" target="_blank" class="wrapped-link">View Document</a></td>
-                                                <td>{{row[3]}}</td>
-                                                <td>{{row[11]}}</td>
-                                                 <td><a href="{{row[4]}}" target="_blank" class="wrapped-link">More details</a></td>
+                                                <!-- Document Title  -->
+                                                <td>{{row[4]}}</td>
 
+                                                <!-- Document Date  -->
+                                                <td>{{row[14]}}</td>
+
+                                                <!-- Category -->
+                                                <td>{{row[13]}}</td>
+
+                                                <!-- Reference  -->
+                                                 <td><a href="{{row[5]}}" target="_blank" class="wrapped-link">More details</a></td>
+
+                                                 <!-- Actions  -->
                                                 <td>
                                                     <div class="dropdown d-inline-block">
                                                         <form action="/editrecord" method='POST'>
