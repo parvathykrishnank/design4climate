@@ -151,7 +151,6 @@ def dashboard():
 
     country_to_doc = dict(zip(count_df['Country'], count_df['Document Title']))
 
-
     # Modify GeoJSON data to include Document Title and set non-data countries to grey
     geojson_data = choropleth.geojson.data
     for feature in geojson_data['features']:
