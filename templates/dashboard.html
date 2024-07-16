@@ -208,6 +208,43 @@
                            <div class="row">
                                 <h2>Overview of Document Availability</h2>
                                         <br>
+
+                                         <hr>
+                                        <h4>Key Climate Laws and Strategies</h4>
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                              {% for column in main_dashboard_columns %}
+                                                <th>{{ column }}</th>
+                                              {% endfor %}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for index, row in main_dashboard_dict.iterrows() %}
+                                            <tr>
+                                              {% for column in main_dashboard_columns %}
+                                                {% if column not in ['CMU', 'Country'] %}
+                                                  {% set cell_value = row[column] %}
+                                                  {% if cell_value == 'Not Available' %}
+                                                    <td style="background-color: #ffcccc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string and cell_value.isdigit() %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string %}
+                                                    <td style="background-color: #ffedcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is number %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% else %}
+                                                    <td>{{ cell_value }}</td>
+                                                  {% endif %}
+                                                {% else %}
+                                                  <td>{{ row[column] }}</td>
+                                                {% endif %}
+                                              {% endfor %}
+                                            </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                        </table>
+
                                         <hr>
                                         <h4>Sector-Specific</h4>
                                         <table class="table">
@@ -259,6 +296,43 @@
                                             {% for index, row in law_legis_df_dict.iterrows() %}
                                             <tr>
                                               {% for column in law_legis_columns %}
+                                                {% if column not in ['CMU', 'Country'] %}
+                                                  {% set cell_value = row[column] %}
+                                                  {% if cell_value == 'Not Available' %}
+                                                    <td style="background-color: #ffcccc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string and cell_value.isdigit() %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is string %}
+                                                    <td style="background-color: #ffedcc;">{{ cell_value }}</td>
+                                                  {% elif cell_value is number %}
+                                                    <td style="background-color: #ccffcc;">{{ cell_value }}</td>
+                                                  {% else %}
+                                                    <td>{{ cell_value }}</td>
+                                                  {% endif %}
+                                                {% else %}
+                                                  <td>{{ row[column] }}</td>
+                                                {% endif %}
+                                              {% endfor %}
+                                            </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                        </table>
+
+                                     <hr>
+
+                                        <h4>National Strategies and Programs</h4>
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                              {% for column in national_strategy_columns %}
+                                                <th>{{ column }}</th>
+                                              {% endfor %}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for index, row in national_strategy_dict.iterrows() %}
+                                            <tr>
+                                              {% for column in national_strategy_columns %}
                                                 {% if column not in ['CMU', 'Country'] %}
                                                   {% set cell_value = row[column] %}
                                                   {% if cell_value == 'Not Available' %}

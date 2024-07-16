@@ -57,7 +57,6 @@ def dashboard():
     count_df['Country_Code'] = count_df['Country'].apply(lambda x: country_to_code[x])
 
     policy_type_count = table_df.groupby(['Policy type'])['Document Title'].count().reset_index()
-    policy_type_count['policy type'] = policy_type_count['Policy type'].apply(lambda x:x.replace('/',' and '))
 
     cmu_list = ncasdf['CMU'].unique().tolist()
     cmu_list.sort()
@@ -73,25 +72,37 @@ def dashboard():
 
     def get_dict(df):
         # Group by and get the max year
-        df_grouped = df.groupby(['CMU', 'Country', 'Category'])['Document Year'].max().reset_index()
+        df_grouped = df.groupby(['CMU', 'Country', 'Short Title'])['Document Year'].max().reset_index()
         # Merge with original data to retain the Status
-        merged_df = pd.merge(df_grouped, ncasdf, on=['CMU', 'Country', 'Category','Document Year'], how='left')
+        merged_df = pd.merge(df_grouped, ncasdf, on=['CMU', 'Country', 'Short Title','Document Year'], how='left')
         # Pivot the DataFrame
         pivot_df = merged_df.pivot_table(index=["CMU", "Country"], 
-                                         columns="Category", values="Document Year", aggfunc='first')
+                                         columns="Short Title", values="Document Year", aggfunc='first')
         # Fill NaN values with 'Not Available'
         pivot_df.fillna('Not Available', inplace=True)
+        
+        test = pivot_df.reset_index()
+
         # Replace '0' with the corresponding Status
         for index, row in pivot_df.iterrows():
             for col in pivot_df.columns:
                 if row[col] == '0':
                     status = merged_df[(merged_df['CMU'] == index[0]) & 
                                        (merged_df['Country'] == index[1]) & 
-                                       (merged_df['Category'] == col)]['Status'].values[0]
+                                       (merged_df['Short Title'] == col)]['Status'].values[0]
                     pivot_df.at[index, col] = status
+
+        # Replace further NaN values with the corresponding Accessibility
+        for index, row in pivot_df.iterrows():
+            for col in pivot_df.columns:
+                if str(row[col]) == 'nan':
+                    accessibility = merged_df[(merged_df['CMU'] == index[0]) & 
+                                       (merged_df['Country'] == index[1]) & 
+                                       (merged_df['Short Title'] == col)]['Accessibility'].values[0]
+                    pivot_df.at[index, col] = accessibility
+
         df_dict = pivot_df.reset_index()
         df_dict['CMU'] = df_dict['CMU'].apply(lambda x:x.replace('_',' '))
-        print(df_dict)
         return df_dict
 
     # Sector Summaries
@@ -104,7 +115,20 @@ def dashboard():
     law_legis_df_dict = get_dict(law_legis)
     law_legis_columns = law_legis_df_dict.columns
 
-    
+    #National Strategy Summary
+    national_strategy = ncasdf[ncasdf['Policy type'] == 'National strategy']
+    national_strategy_dict = get_dict(national_strategy)
+    national_strategy_columns = national_strategy_dict.columns
+
+    columns_ordered = ['NDC','LTS', 'NECP', 
+        'Climate Change Strategy','NAP','Energy Strategy','Climate change Law',
+        'Air Protection Law','Energy Efficiency Law','Renewable Energy Law','CCDR']
+    main_dashboard = ncasdf[ncasdf['Short Title'].isin(columns_ordered)]
+    main_dashboard_dict = get_dict(main_dashboard)
+    all_columns = ['CMU','Country']+columns_ordered
+    main_dashboard_dict = main_dashboard_dict[all_columns]
+    main_dashboard_columns = main_dashboard_dict.columns
+
 
     m = folium.Map(location=[50, 60], zoom_start=3, tiles='cartodbpositron')
 
@@ -174,7 +198,9 @@ def dashboard():
         english_documents = english_documents,
         perc_english = perc_english,
         sector_df_dict = sector_df_dict,sector_columns = sector_columns,
-        law_legis_df_dict = law_legis_df_dict,law_legis_columns = law_legis_columns
+        law_legis_df_dict = law_legis_df_dict,law_legis_columns = law_legis_columns,
+        national_strategy_dict = national_strategy_dict, national_strategy_columns=national_strategy_columns,
+        main_dashboard_dict = main_dashboard_dict, main_dashboard_columns=main_dashboard_columns
     )
 
 @app.route('/index')
@@ -197,8 +223,7 @@ def index():
     ncasdf['Accessibility'].fillna('N/A',inplace=True)
     ncasdf['color_access'] = ncasdf['Accessibility'].apply(lambda x: color_access_dict[x.strip()])
 
-    #for idx, col in enumerate(ncasdf.columns):
-        #print(f"Column ID: {idx}, Column Name: {col}, First Value: {ncasdf[col].iloc[0]}")
+    ncasdf = ncasdf.fillna('No additional remarks')
 
     return render_template('index.html',row_data=list(ncasdf.astype(str).values.tolist()))
 
