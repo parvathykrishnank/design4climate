@@ -17,17 +17,14 @@ Our goal is to have an open and collaborative platform to collect climate-releva
 
 ## API/Version
 
-The application is built using Flask (Python Flask) for the backend and a modern frontend framework. The data was last updated on: **July 16, 2024**. The latest backend and frontend updates were made on **July 23, 2024**.
-
-View the source code on GitHub: [![GitHub Logo](../static/assets/images/github.png)](https://github.com/parvathykrishnank/design4climate) GitHub Repository
+The application uses Flask (Python Flask) for the backend and a modern frontend framework. The data was last updated on: **July 16, 2024**. The latest backend and frontend updates were made on **July 23, 2024**.
 
 ### Release Notes
 
 #### V1.1.0.beta
 
 ![Minor](https://img.shields.io/badge/Minor-yellow) ![Operational pre-release](https://img.shields.io/badge/Operational%20pre--release-blue)
-
-Release notes page have been added to the website and minor changes have been made to ensure right links to be redirected. This version does not affect any of the functionalities released under the previous pre-release version.
+The release notes page has been added to the website, and minor changes have been made to ensure the right links are redirected. This version does not affect any of the functionalities released under the previous pre-release version.
 
 ## Disclaimer
 
