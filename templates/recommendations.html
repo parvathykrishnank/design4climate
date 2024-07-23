@@ -2,34 +2,23 @@
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
 <head>
-
     <meta charset="utf-8" />
     <title>Climate Legislation and Actions Database | CLAD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Climate Legislation and Actions Database | CLAD-ECA" name="description" />
     <meta content="World Bank Group" name="author" />
-    <!-- App favicon -->
     <link rel="shortcut icon" href="../static/assets/images/favicon.ico">
-
-    <!-- plugin css -->
-    <link href="../static/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Layout config Js -->
     <script src="../static/assets/js/layout.js"></script>
-    <!-- Bootstrap Css -->
     <link href="../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
     <link href="../static/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
     <link href="../static/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
     <link href="../static/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .wrapped-link {
-          white-space: normal;
-      }
-  </style>
-  <style>
+            white-space: normal;
+        }
+    </style>
+    <style>
         #pdfContainer {
             border: 1px solid #ccc;
             width: 100%;
@@ -40,12 +29,9 @@
             page-break-before: always;
         }
     </style>
-
 </head>
 
 <body style="margin: 0; background: #f4f6f8">
-
-    <!-- Begin page -->
     <div id="layout-wrapper">
         <header id="page-topbar">
             <div class="layout-width">
@@ -56,42 +42,24 @@
             </div>
         </header>
 
-        <!-- ========== App Menu ========== -->
         <div class="app-menu navbar-menu">
-
-            <!-- LOGO -->
             <div id="logo"></div>
-
-            <!-- Header -->
             <div id="header"></div>
-
             <div class="sidebar-background"></div>
-
         </div>
-        <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
         <div class="main-content">
-
             <div class="page-content">
                 <div class="container-fluid">
-
-                    <!-- start TITLE ROW  -->
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                 <h1>Climate Legislation and Actions Database</h1>
                                 <h3 class="mb-sm-0">Climate Legislation and Action Database in ECA (CLAD-ECA) is a repository of climate-relevant national-level legislation, strategies, action plans, and policies in Europe and Central Asia (ECA) region. It is developed and maintained by the Design 4 Climate (D4C) that works on the fulfillment of the World Bank's climate corporate commitments in ECA region on behalf of ECA Development Effectiveness (DE).</h3>
-
                             </div>
                         </div>
                     </div>
-                    <!-- end TITLE ROW -->
-
-                    <!-- start DATABASE ROW  -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
@@ -103,32 +71,28 @@
                                     <hr>
                                     <p>Select a country from the dropdown</p>
                                     <select id="countrySelect" onchange="loadCountryData()">
+                                        <option value="Azerbaijan">Azerbaijan</option>
                                         <option value="Kazakhstan">Kazakhstan</option>
-                                        <option value="Kazakhstan">Kazakhstan</option>
+                                        <option value="Romania">Romania</option>
                                     </select>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div id="summary">
                                                 <!-- Summaries will be injected here -->
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-6">
                                             <h2>Reference Document</h2>
                                             <div id="pdfContainer"></div>
                                         </div>
                                     </div>
-                                   
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
                     </div>
-                    <!--end DATABASE row-->
-
                 </div>
-                <!-- container-fluid -->
             </div>
-            <!-- End Page-content -->
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -145,20 +109,12 @@
                 </div>
             </footer>
         </div>
-        <!-- end main content-->
-
     </div>
-    <!-- END layout-wrapper -->
 
-
-
-    <!--start back-to-top-->
     <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
         <i class="ri-arrow-up-line"></i>
     </button>
-    <!--end back-to-top-->
 
-    <!--preloader-->
     <div id="preloader">
         <div id="status">
             <div class="spinner-border text-primary avatar-sm" role="status">
@@ -167,74 +123,34 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script src="../static/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../static/assets/js/plugins.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!-- App js -->
     <script src="../static/assets/js/app.js"></script>
 
-    <!-- PDF.js Scripts -->
     <script type="module">
         import { getDocument, GlobalWorkerOptions } from '../static/pdfjs/build/pdf.mjs';
-
         GlobalWorkerOptions.workerSrc = '../static/pdfjs/build/pdf.worker.mjs';
 
         let pdfDoc = null,
             scale = 1.5,
             container = document.getElementById('pdfContainer');
 
-       const summaries = {
-    Kazakhstan: `
-        <h4>Short Summary of the Documents</h4>
-        <p>The Country Climate and Development Report (CCDR) for Kazakhstan outlines strategies for transitioning to a low-carbon economy while ensuring sustainable development. The Long-Term Strategy (LTS) aims to achieve carbon neutrality by 2060 through comprehensive measures addressing various sectors. The Nationally Determined Contribution (NDS) focuses on Kazakhstan's commitments under the Paris Agreement, setting specific targets for greenhouse gas emission reductions by 2030 and outlining adaptation measures to combat climate change impacts.</p>
-        
-        <h4>Compare and Contrast CCDR, LTS, and NDS Documents</h4>
-        <p>The CCDR identifies key challenges such as economic dependence on fossil fuels and climate vulnerability, and highlights opportunities in renewable energy, green investments, and technological advancements. The LTS aims for carbon neutrality by 2060 through measures across energy, industry, transport, agriculture, and waste management. The NDS sets specific targets for reducing greenhouse gas emissions by 15% (unconditional) and 25% (conditional) by 2030, with a focus on both mitigation and adaptation strategies.</p>
-        
-        <h4>Challenges</h4>
-        <p>Both the CCDR and LTS recognize the economic dependence on fossil fuels as a major challenge. The CCDR highlights climate risks such as changes in rainfall patterns, droughts, and floods impacting agriculture and infrastructure (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 10)">CCDR</a>). The LTS points out regulatory and institutional gaps as significant hurdles (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 9)">LTS</a>). The NDS also mentions barriers such as the impact of carbon pricing on energy costs and inflation, and the need for international investments and technology transfers (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 10)">NDS</a>).</p>
-        
-        <h4>Opportunities</h4>
-        <p>Kazakhstan's potential for renewable energy, particularly wind and solar, is a focal point in all documents. The CCDR emphasizes opportunities in green investments and technological advancements (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 14)">CCDR</a>), while the LTS highlights the importance of international cooperation to support climate initiatives (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 14)">LTS</a>). The NDS supports these opportunities and also stresses the importance of sustainable land use and water management practices (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 15)">NDS</a>).</p>
-        
-        <h4>Recommendations</h4>
-        <p>The CCDR recommends increasing renewable energy capacity to 15% of total power generation by 2030 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 27)">CCDR</a>), improving energy efficiency across all sectors to reduce consumption by 30% by 2030 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 27)">CCDR</a>), and implementing carbon pricing mechanisms to cover 50% of national emissions by 2025 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 20)">CCDR</a>). The LTS suggests increasing the share of renewables to 50% by 2050 (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 27)">LTS</a>), reducing coal consumption by 80% by 2030 (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 27)">LTS</a>), and enhancing energy efficiency across all sectors (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 27)">LTS</a>). The NDS aligns with these goals and sets additional targets for reducing GHG emissions by 2030, improving water resource management, and promoting sustainable agriculture (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 20)">NDS</a>).</p>
-        
-        <h4>Sector-Specific Insights</h4>
-        
-        <h5>Agriculture</h5>
-        <p>The CCDR emphasizes improving climate resilience in agriculture by adopting sustainable farming practices and enhancing water efficiency (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 30)">CCDR</a>). The LTS highlights the importance of transitioning to organic farming and reducing emissions from agricultural activities (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 32)">LTS</a>). The NDS focuses on crop diversification, modern irrigation techniques, and improved soil management to mitigate climate impacts (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 25)">NDS</a>).</p>
-        
-        <h5>Waste</h5>
-        <p>The CCDR and LTS both advocate for improved waste management practices, including increased recycling and waste-to-energy projects. The CCDR outlines strategies for reducing landfill waste and promoting circular economy principles (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 40)">CCDR</a>). The LTS suggests implementing stricter waste management regulations and enhancing public awareness programs (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 38)">LTS</a>). The NDS supports these measures and adds specific targets for reducing methane emissions from waste (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 30)">NDS</a>).</p>
-        
-        <h5>Energy</h5>
-        <p>The CCDR recommends scaling up renewable energy investments and improving energy efficiency standards across all sectors (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 50)">CCDR</a>). The LTS provides a roadmap for phasing out coal and increasing the share of renewables in the energy mix (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 45)">LTS</a>). The NDS highlights the need for international cooperation in technology transfer and investments to achieve energy transition goals (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 35)">NDS</a>).</p>
-        
-        <h5>Transport</h5>
-        <p>The CCDR proposes enhancing public transport infrastructure and promoting electric vehicles to reduce transport emissions (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 60)">CCDR</a>). The LTS emphasizes the need for sustainable urban planning and investments in green transport technologies (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 55)">LTS</a>). The NDS supports these initiatives and includes measures to improve fuel efficiency and reduce emissions from the transport sector (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 40)">NDS</a>).</p>
-        
-        <h4>Medium-term Actions</h4>
-        <p>Both reports outline medium-term actions. The CCDR focuses on setting targets to reduce GHG emissions by 25% below 1990 levels by 2030 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 19)">CCDR</a>), achieving carbon neutrality by 2060 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 20)">CCDR</a>), and expanding climate services to provide real-time data to 5 million users by 2030 (<a href="#" onclick="goToPage('Kazakhstan', 'CCDR', 26)">CCDR</a>). The LTS emphasizes regulatory reforms, green financing, and public awareness campaigns to support the transition to a low-carbon economy (<a href="#" onclick="goToPage('Kazakhstan', 'LTS', 27)">LTS</a>). The NDS outlines a roadmap for implementing adaptation and mitigation measures, with periodic reviews to assess progress (<a href="#" onclick="goToPage('Kazakhstan', 'NDS', 45)">NDS</a>).</p>
-    `
-};
-
-
         function loadCountryData() {
             const selectedCountry = document.getElementById('countrySelect').value;
-            document.getElementById('summary').innerHTML = summaries[selectedCountry];
-            loadPDF(`../static/pdfs/${selectedCountry}_CCDR.pdf`);
+            fetch(`../static/summary/${selectedCountry.toLowerCase()}.html`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('summary').innerHTML = data;
+                });
+            loadPDF(`../static/pdfs/${selectedCountry}/CCDR.pdf`);
         }
 
         function loadPDF(url) {
-            container.innerHTML = ''; // Clear the container
+            container.innerHTML = '';
             getDocument(url).promise.then(function(pdfDoc_) {
                 pdfDoc = pdfDoc_;
                 renderAllPages().then(() => {
-                    // Optionally scroll to top after rendering all pages
                     container.scrollTop = 0;
                 });
             });
@@ -242,11 +158,9 @@
 
         function renderAllPages() {
             const pagesPromises = [];
-
             for (let num = 1; num <= pdfDoc.numPages; num++) {
                 pagesPromises.push(renderPage(num));
             }
-
             return Promise.all(pagesPromises);
         }
 
@@ -276,10 +190,10 @@
         }
 
         window.goToPage = function(country, doc, num) {
-            const docUrl = `../static/pdfs/${country}_${doc}.pdf`;
+            const docUrl = `../static/pdfs/${country}/${doc}.pdf`;
             getDocument(docUrl).promise.then(function(pdfDoc_) {
                 pdfDoc = pdfDoc_;
-                container.innerHTML = ''; // Clear the container
+                container.innerHTML = '';
                 renderAllPages().then(() => {
                     scrollToPage(num);
                 });
@@ -287,16 +201,16 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadCountryData();
+            document.getElementById('countrySelect').addEventListener('change', loadCountryData);
+            loadCountryData(); // Initial load
         });
     </script>
 
     <script>
         $(function(){
-          $("#header").load("../static/header.html"); 
-          $("#logo").load("../static/logo.html"); 
+            $("#header").load("../static/header.html"); 
+            $("#logo").load("../static/logo.html"); 
         });
     </script>
 </body>
-
 </html>
