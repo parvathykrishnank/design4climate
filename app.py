@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def dashboard():
-
     selected_cmu = request.args.get('CMU', 'All')
     selected_country = request.args.get('COUNTRY', 'All')
 
@@ -125,10 +124,10 @@ def dashboard():
         'Air Protection Law','Energy Efficiency Law','Renewable Energy Law','CCDR']
     main_dashboard = ncasdf[ncasdf['Short Title'].isin(columns_ordered)]
     main_dashboard_dict = get_dict(main_dashboard)
+    columns_ordered = list(set(columns_ordered).intersection(set(main_dashboard_dict.columns)))
     all_columns = ['CMU','Country']+columns_ordered
     main_dashboard_dict = main_dashboard_dict[all_columns]
     main_dashboard_columns = main_dashboard_dict.columns
-
 
     m = folium.Map(location=[50, 60], zoom_start=3, tiles='cartodbpositron')
 
@@ -275,9 +274,17 @@ def recordroute():
 def recommendations():
     return render_template('recommendations.html')
 
+@app.route('/about')
+def about():
+    df_country = pd.read_excel('acknowledgment.xlsx',sheet_name='Sheet1')
+    df_dfc = pd.read_excel('acknowledgment.xlsx',sheet_name='Sheet2')
+
+    return render_template('about.html',
+        country_teams=list(df_country.astype(str).values.tolist()),
+        dfc_teams=list(df_dfc.astype(str).values.tolist()))
 
 if __name__ == "__main__":
-   app.run(debug=False,port=8080)
+   app.run()
 
 
 

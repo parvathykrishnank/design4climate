@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>Climate Legislation and Actions Database</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="National Climate Strategies and Policies Database" name="description" />
+    <meta content="Climate Legislation and Actions Database | CLAD-ECA" name="description" />
     <meta content="World Bank Group" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="../static/assets/images/favicon.ico">
@@ -32,87 +32,23 @@
             <div class="layout-width">
                 <div class="navbar-header">
                     <div class="d-flex">
-                        <!-- LOGO -->
-                        <div class="navbar-brand-box horizontal-logo">
-                            <br><br>
-                            <a href="/" class="logo logo-gpbp">
-                                <span class="logo-sm">
-                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                                </span>
-                            </a>
-
-                            <a href="/" class="logo logo-gpbp">
-                                <span class="logo-sm">
-                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                                </span>
-                            </a>
-                        </div>
                     </div>
-
-
                 </div>
             </div>
         </header>
 
         <!-- ========== App Menu ========== -->
         <div class="app-menu navbar-menu">
-            <!-- LOGO -->
-            <div class="navbar-brand-box">
-                <br><br>
-                <!-- Dark Logo-->
-                <a href="/" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                    </span>
-                </a>
-                <!-- Light Logo-->
-                <a href="/" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="../static/assets/images/logo-d4c.png" alt="" width= "190" height="80">
-                    </span>
-                </a>
-                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
-                    <i class="ri-record-circle-line"></i>
-                </button>
-            </div>
 
-            <div id="scrollbar">
-                <div class="container-fluid">
-                    <ul class="navbar-nav" id="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="/">
-                                <i class="ri-layout-grid-fill"></i> <span data-key="t-dashboards">Dashboard</span>
-                            </a>
-                            <a class="nav-link menu-link" href="/index">
-                                <i class="ri-database-2-line"></i> <span data-key="t-dashboards">View Database</span>
-                            </a>
-                            <a class="nav-link menu-link" href="/record">
-                                <i class="ri-add-box-line"></i> <span data-key="t-dashboards">Add New Record</span>
-                            </a>
-                            <a class="nav-link menu-link" href="/genai">
-                                <i class="ri-test-tube-fill"></i> <span data-key="t-dashboards">Recommendations</span>
-                            </a>
-                        </li> <!-- end Dashboard Menu -->
-                    </ul>
-                </div>
-                <!-- Sidebar -->
-            </div>
+            <!-- LOGO -->
+            <div id="logo"></div>
+
+            <!-- Header -->
+            <div id="header"></div>
 
             <div class="sidebar-background"></div>
+
         </div>
-        <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
 
@@ -363,6 +299,15 @@
             } else {
               otherInput.style.display = 'none';
             }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function(){
+          $("#header").load("../static/header.html"); 
+          $("#logo").load("../static/logo.html"); 
         });
     </script>
 
