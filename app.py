@@ -38,7 +38,7 @@ def dashboard():
     'Austria':'AUT'
     }
 
-    ncasdf = pd.read_excel('database.xlsx')
+    ncasdf = pd.read_excel('static/data/database.xlsx')
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
     ncasdf['Document date'] = pd.to_datetime(ncasdf['Document date'])
     ncasdf['Document Year'] = ncasdf['Document date'].dt.year
@@ -203,7 +203,7 @@ def dashboard():
 
 @app.route('/index')
 def index():
-    ncasdf = pd.read_excel('database.xlsx')
+    ncasdf = pd.read_excel('static/data/database.xlsx')
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
 
     color_status_dict = {'Adopted':'green','Draft':'#DAA520','Work in Progress':'orange','Unknown':'red'}
@@ -228,7 +228,7 @@ def index():
 @app.route('/record',methods=['POST'])
 def record():
     if request.method == 'POST':
-        ncasdf = pd.read_excel('database.xlsx')
+        ncasdf = pd.read_excel('static/data/database.xlsx')
 
         cmu = request.form['CMU']
         country = request.form['Country']
@@ -257,7 +257,7 @@ def record():
 
 @app.route('/record', methods=['GET'])
 def recordroute():
-    ncasdf = pd.read_excel('database.xlsx')
+    ncasdf = pd.read_excel('static/data/database.xlsx')
     ncasdf = ncasdf[ncasdf['CMU'].astype(str)!='nan']
 
     cmu_list = list(ncasdf['CMU'].unique())
@@ -276,8 +276,8 @@ def recommendations():
 
 @app.route('/about')
 def about():
-    df_country = pd.read_excel('acknowledgment.xlsx',sheet_name='Sheet1')
-    df_dfc = pd.read_excel('acknowledgment.xlsx',sheet_name='Sheet2')
+    df_country = pd.read_excel('static/data/acknowledgment.xlsx',sheet_name='Sheet1')
+    df_dfc = pd.read_excel('static/data/acknowledgment.xlsx',sheet_name='Sheet2')
 
     return render_template('about.html',
         country_teams=list(df_country.astype(str).values.tolist()),
