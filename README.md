@@ -24,7 +24,7 @@ The application uses Flask (Python Flask) for the backend and a modern frontend 
 #### V1.1.0.beta
 
 ![Minor](https://img.shields.io/badge/Minor-yellow) ![Operational pre-release](https://img.shields.io/badge/Operational%20pre--release-blue)
-The release notes page has been added to the website, and minor changes have been made to ensure the right links are redirected. This version does not affect any of the functionalities released under the previous pre-release version.
+This is the first version which includes an operational pre-release meant for internal testing. It has all basic functionalities to view the database, add records, and also view summaries of texts per country using generative AI.
 
 ## Disclaimer
 
