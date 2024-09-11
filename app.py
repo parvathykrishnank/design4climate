@@ -19,6 +19,7 @@ def dashboard():
     'Armenia': 'ARM',
     'Azerbaijan': 'AZE',
     'Bosnia & Herzegovina': 'BIH',
+    'Bosnia and Herzegovina': 'BIH',
     'Croatia': 'HRV',
     'Georgia': 'GEO',
     'Kazakhstan': 'KAZ',
@@ -30,8 +31,10 @@ def dashboard():
     'Poland': 'POL',
     'Romania': 'ROU',
     'Serbia': 'SRB',
+    'Republic of Serbia': 'SRB',
     'Tajikistan': 'TJK',
     'Turkiye': 'TUR',
+    'Turkey':'Turkey',
     'Turkmenistan': 'TKM',
     'Ukraine': 'UKR',
     'Uzbekistan': 'UZB',
@@ -198,7 +201,7 @@ def dashboard():
         sector_df_dict = sector_df_dict,sector_columns = sector_columns,
         law_legis_df_dict = law_legis_df_dict,law_legis_columns = law_legis_columns,
         national_strategy_dict = national_strategy_dict, national_strategy_columns=national_strategy_columns,
-        main_dashboard_dict = main_dashboard_dict, main_dashboard_columns=main_dashboard_columns
+        main_dashboard_dict = main_dashboard_dict
     )
 
 @app.route('/index')
