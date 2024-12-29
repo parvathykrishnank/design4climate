@@ -95,6 +95,7 @@
                                     <h5 class="card-title mb-0 flex-grow-1">Climate Legislation and Actions Database</h5>
                                     <div>
                                         <a href='/record'><button id="addRecord" class="btn btn-primary">Add New Record</button></a>
+                                        <button id="download-excel" class="btn btn-success">Download Displayed Data</button>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -227,7 +228,6 @@
 
     <!-- JAVASCRIPT -->
     <script src="../static/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!--datatable js-->
@@ -251,6 +251,118 @@
           $("#header").load("../static/header.html"); 
           $("#logo").load("../static/logo.html"); 
         });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+   
+    <script type="text/javascript">
+
+document.getElementById('download-excel').addEventListener('click', async function() {
+    const button = this;
+    const originalText = button.innerHTML;
+
+    try {
+        // First handle the Excel download using the existing functionality
+        const excelData = await handleExcelDownload(button);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during the download process.');
+    } finally {
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }
+});
+
+// Function to handle Excel download
+async function handleExcelDownload(button) {
+    var table = $('#scroll-horizontal').DataTable();
+    var data = table.rows({ search: 'applied' }).data().toArray();
+    
+    if (data.length === 0) {
+        alert('No data to export. Please modify your search/filter criteria.');
+        return;
+    }
+
+    // Helper function to clean HTML and excess whitespace
+    function cleanText(text) {
+        if (!text) return '';
+        text = text.toString();
+        return text
+            .replace(/<br\s*\/?>/gi, ' - ')
+            .replace(/<font[^>]*>/gi, '')
+            .replace(/<\/font>/gi, '')
+            .replace(/<span[^>]*>/gi, '')
+            .replace(/<\/span>/gi, '')
+            .replace(/<[^>]*>/g, '')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+    
+    function extractUrl(html) {
+        const match = html.match(/href="([^"]*)"/);
+        return match ? match[1] : '';
+    }
+
+    function extractBadgeValues(html) {
+        const badges = html.match(/<span class="badge"[^>]*>([^<]*)<\/span>/g) || [];
+        const values = badges.map(badge => badge.replace(/<[^>]*>/g, '').trim());
+        return {
+            status: values[0] || '',
+            language: values[1] || '',
+            accessibility: values[2] || ''
+        };
+    }
+    
+    const exportData = data.map(row => {
+        const countryCell = cleanText(row[0]).split(' - ');
+        const titleCell = cleanText(row[1]).split(' - ');
+        const badges = extractBadgeValues(row[3]);
+        
+        return {
+            'Country': countryCell[0] || '',
+            'CMU': countryCell[1] || '',
+            'Short Title': titleCell[0] || '',
+            'Policy Type': titleCell[1] || '',
+            'Document Link': extractUrl(row[2]),
+            'Status': badges.status,
+            'Language': badges.language,
+            'Accessibility': badges.accessibility,
+            'Document Title': cleanText(row[4]),
+            'Document Date': cleanText(row[5]),
+            'Category': cleanText(row[6]),
+            'Reference': extractUrl(row[7]),
+            'Remarks': cleanText(row[8])
+        };
+    });
+
+    button.innerHTML = 'Downloading Excel...';
+    button.disabled = true;
+    
+    const response = await fetch('/download-excel', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(exportData)
+    });
+
+    if (!response.ok) {
+        throw new Error('Excel download failed');
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `CLAD_Data_${new Date().toISOString().split('T')[0]}.xlsx`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
+    return exportData;
+}
     </script>
 
 </body>

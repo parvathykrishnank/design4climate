@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 import pandas as pd
 import random
 import string
 from datetime import date
 import folium
 from folium.features import GeoJsonTooltip
-
+from io import BytesIO
 
 app = Flask(__name__,static_url_path='/static')
 
@@ -285,6 +285,39 @@ def about():
     return render_template('about.html',
         country_teams=list(df_country.astype(str).values.tolist()),
         dfc_teams=list(df_dfc.astype(str).values.tolist()))
+
+@app.route('/download-excel', methods=['POST'])
+def download_excel():
+    # Get the filtered data from the POST request
+    filtered_data = request.get_json()
+    
+    # Convert to DataFrame
+    df = pd.DataFrame(filtered_data)
+    
+    # Create an Excel file in memory
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='CLAD_Data')
+        
+        # Basic formatting
+        workbook = writer.book
+        worksheet = writer.sheets['CLAD_Data']
+        
+        # Simple header format
+        header_format = workbook.add_format({'bold': True})
+        
+        # Write headers
+        for col_num, value in enumerate(df.columns.values):
+            worksheet.write(0, col_num, value, header_format)
+            worksheet.set_column(col_num, col_num, 15)
+    
+    output.seek(0)
+    return send_file(
+        output,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        as_attachment=True,
+        download_name=f'CLAD_Data_{date.today().strftime("%Y%m%d")}.xlsx'
+    )
 
 if __name__ == "__main__":
    app.run()
